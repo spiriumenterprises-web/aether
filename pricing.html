@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pricing — Aether</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 32px;
+      max-width: 900px;
+      margin: 0 auto 120px;
+    }
+    .pricing-card {
+      background: var(--glass-bg);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .pricing-card.featured {
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.5);
+    }
+    .pricing-card.featured::before {
+      content: 'Most Popular';
+      position: absolute;
+      top: -12px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--fg-primary);
+      color: var(--bg);
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .plan-name { font-size: 20px; color: var(--fg-secondary); margin-bottom: 12px; }
+    .plan-price { font-size: 48px; font-weight: 500; color: var(--fg-primary); margin-bottom: 24px; letter-spacing: -0.04em; }
+    .plan-price span { font-size: 16px; color: var(--fg-secondary); font-weight: 400; }
+    .plan-desc { color: var(--fg-secondary); margin-bottom: 32px; line-height: 1.6; }
+    .feature-list { list-style: none; margin-bottom: 40px; flex-grow: 1; }
+    .feature-list li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      color: var(--fg-primary);
+      font-size: 15px;
+    }
+    .feature-list svg { width: 16px; height: 16px; color: #E1E0CC; }
+    
+    .btn-block {
+      text-align: center;
+      width: 100%;
+      justify-content: center;
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--fg-primary);
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.05); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="logo"><div class="logo-dot"></div> Aether</a>
+    <div class="nav-links">
+      <a href="/features.html" class="nav-link">Features</a>
+      <a href="/philosophy.html" class="nav-link">Philosophy</a>
+      <a href="/pricing.html" class="nav-link" style="color: var(--fg-primary);">Pricing</a>
+      <a href="Aether_v5.apk" class="nav-link" download>Download APK</a>
+    </div>
+  </nav>
+
+  <section class="page-header container">
+    <h1>Simple, transparent pricing.</h1>
+    <p>Start for free. Upgrade when you need more power.</p>
+  </section>
+
+  <section class="container">
+    <div class="pricing-grid">
+      
+      <!-- Free Plan -->
+      <div class="pricing-card">
+        <div class="plan-name">Core</div>
+        <div class="plan-price">$0 <span>/ forever</span></div>
+        <div class="plan-desc">Everything you need to orchestrate your daily life, completely free.</div>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Unlimited Tasks</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 5 Daily Habits</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Basic Journaling</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Local Storage</li>
+        </ul>
+        <a href="Aether_v5.apk" class="btn-download btn-secondary btn-block" download>Download Free</a>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="pricing-card featured">
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">$8 <span>/ month</span></div>
+        <div class="plan-desc">Advanced features and AI integration for peak productivity.</div>
+        <ul class="feature-list">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Everything in Core</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Unlimited Habits & Goals</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Cloud Sync across devices</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Aether AI Assistant</li>
+        </ul>
+        <a href="Aether_v5.apk" class="btn-download btn-block" download>Upgrade in App</a>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>Aether — Designed for clarity.</p>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="mailto:hello@aetherworld.com">Contact</a>
+    </div>
+  </footer>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features — Aether</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="logo"><div class="logo-dot"></div> Aether</a>
+    <div class="nav-links">
+      <a href="/features.html" class="nav-link" style="color: var(--fg-primary);">Features</a>
+      <a href="/philosophy.html" class="nav-link">Philosophy</a>
+      <a href="/pricing.html" class="nav-link">Pricing</a>
+      <a href="Aether_v5.apk" class="nav-link" download>Download APK</a>
+    </div>
+  </nav>
+
+  <section class="page-header container">
+    <h1>Clarity in every interaction.</h1>
+    <p>Explore the five core pillars that make Aether the ultimate operating system for your mind.</p>
+  </section>
+
+  <!-- We will just reuse the bento grid from index here as a placeholder for the features deep dive -->
+  <section class="bento-section" style="padding-top: 0;">
+    <div class="container">
+      <div class="bento-grid" id="bentoGrid">
+        <div class="bento-card bento-large">
+          <div class="bento-card-content">
+            <h3>Unified Workspace</h3>
+            <p>Tasks, projects, and due dates elegantly organized. Aether eliminates the friction of switching context by bringing your entire life's management into a single, cohesive view.</p>
+          </div>
+        </div>
+        
+        <div class="bento-card">
+          <div class="bento-card-content">
+            <h3>Habit Formation</h3>
+            <p>Track daily habits visually. Build streaks and watch your consistency compound over time without the noise of gamification.</p>
+          </div>
+        </div>
+
+        <div class="bento-card">
+          <div class="bento-card-content">
+            <h3>Mindful Reflection</h3>
+            <p>A private, secure journal space to capture your thoughts, track your mood, and reflect on your days with absolute clarity.</p>
+          </div>
+        </div>
+
+        <div class="bento-card bento-large">
+          <div class="bento-card-content">
+            <h3>Long-term Horizons</h3>
+            <p>Set meaningful goals spanning months or years. Break them down into milestones and connect them directly to your daily tasks and habits.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Aether — Designed for clarity.</p>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="mailto:hello@aetherworld.com">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('bentoGrid').onmousemove = e => {
+      for(const card of document.getElementsByClassName("bento-card")) {
+        const rect = card.getBoundingClientRect(),
+              x = e.clientX - rect.left,
+              y = e.clientY - rect.top;
+        card.style.setProperty("--mouse-x", `${x}px`);
+        card.style.setProperty("--mouse-y", `${y}px`);
+      };
+    }
+  </script>
+</body>
+</html>

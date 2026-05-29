@@ -7,82 +7,9 @@
   <meta name="description" content="A calm, intelligent productivity operating system.">
   <meta name="theme-color" content="#030303">
   
+  <link rel="stylesheet" href="styles.css">
+  
   <style>
-    :root {
-      --bg: #030303;
-      --fg-primary: #EDEDED;
-      --fg-secondary: #8E8E93;
-      --border: rgba(255, 255, 255, 0.08);
-      --glass-bg: rgba(20, 20, 20, 0.4);
-      --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--bg);
-      color: var(--fg-primary);
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-      overflow-x: hidden;
-      line-height: 1.5;
-    }
-
-    /* Typography */
-    h1, h2, h3 {
-      font-weight: 500;
-      letter-spacing: -0.04em;
-    }
-    
-    /* Layout */
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* Nav */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 24px;
-      z-index: 100;
-      background: rgba(3, 3, 3, 0.6);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      border-bottom: 1px solid var(--border);
-    }
-    .logo {
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: -0.02em;
-      color: var(--fg-primary);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .logo-dot {
-      width: 6px; height: 6px;
-      background: var(--fg-primary);
-      border-radius: 50%;
-    }
-    .nav-links { display: flex; gap: 24px; align-items: center; }
-    .nav-link {
-      font-size: 13px;
-      color: var(--fg-secondary);
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .nav-link:hover { color: var(--fg-primary); }
-
     /* Hero */
     .hero {
       position: relative;
@@ -126,45 +53,10 @@
       animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
     }
     
-    /* Button */
     .btn-download {
-      position: relative;
-      display: inline-flex;
-      align-items: center;
-      gap: 12px;
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 16px 32px;
-      border-radius: 100px;
-      color: var(--fg-primary);
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      overflow: hidden;
-      z-index: 1;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       opacity: 0;
       animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
     }
-    .btn-download:hover {
-      background: rgba(255, 255, 255, 0.1);
-      border-color: rgba(255, 255, 255, 0.2);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(0,0,0,0.5);
-    }
-    .btn-download .icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 24px; height: 24px;
-      background: var(--fg-primary);
-      color: var(--bg);
-      border-radius: 50%;
-    }
-    .btn-download .icon svg { width: 14px; height: 14px; }
 
     /* Mockup */
     .hero-mockup-wrapper {
@@ -181,7 +73,7 @@
     }
     .hero-mockup {
       width: 100%;
-      max-width: 400px; /* Constrain the height visually */
+      max-width: 400px;
       height: auto;
       transform: rotateX(15deg) rotateY(-5deg) rotateZ(2deg);
       transition: transform 0.5s ease;
@@ -232,7 +124,6 @@
     .bento-card:hover {
       border-color: rgba(255, 255, 255, 0.2);
     }
-    /* Inner Glow for cards */
     .bento-card::before {
       content: '';
       position: absolute;
@@ -257,23 +148,12 @@
       line-height: 1.6;
     }
 
-    /* Asymmetric sizing */
     .bento-large { grid-column: span 2; }
     @media(max-width: 900px) {
       .bento-grid { grid-template-columns: 1fr; }
       .bento-large { grid-column: span 1; }
     }
 
-    /* Footer */
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 40px 24px;
-      text-align: center;
-      color: var(--fg-secondary);
-      font-size: 13px;
-    }
-
-    /* Animations */
     @keyframes revealUp {
       from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
@@ -284,12 +164,14 @@
 
   <!-- Nav -->
   <nav>
-    <a href="#" class="logo">
+    <a href="/" class="logo">
       <div class="logo-dot"></div>
       Aether
     </a>
     <div class="nav-links">
-      <a href="#features" class="nav-link">Features</a>
+      <a href="/features.html" class="nav-link">Features</a>
+      <a href="/philosophy.html" class="nav-link">Philosophy</a>
+      <a href="/pricing.html" class="nav-link">Pricing</a>
       <a href="Aether_v5.apk" class="nav-link" download>Download APK</a>
     </div>
   </nav>
@@ -358,6 +240,10 @@
   <!-- Footer -->
   <footer>
     <p>Aether — Designed for clarity.</p>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="mailto:hello@aetherworld.com">Contact</a>
+    </div>
   </footer>
 
   <!-- Scripts -->
