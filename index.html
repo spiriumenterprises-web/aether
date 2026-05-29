@@ -3,468 +3,353 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aether — Your Life, Orchestrated</title>
-  <meta name="description" content="Aether is a calm, intelligent productivity operating system. Tasks, habits, journals, goals, AI — all in one place.">
-  <meta name="theme-color" content="#050508">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <title>Aether — The operating system for your mind.</title>
+  <meta name="description" content="A calm, intelligent productivity operating system.">
+  <meta name="theme-color" content="#030303">
+  
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #050508;
-      --bg-card: #0B0B14;
-      --bg-elevated: #0F0F1A;
-      --pri: #7C3AED;
-      --pri-soft: rgba(124,58,237,0.10);
-      --pri-glow: rgba(124,58,237,0.15);
-      --cyan: #06B6D4;
-      --green: #10B981;
-      --rose: #EC4899;
-      --amber: #F59E0B;
-      --t1: #F1F5F9;
-      --t2: #94A3B8;
-      --t3: #64748B;
-      --border: rgba(148,163,184,0.08);
+      --bg: #030303;
+      --fg-primary: #EDEDED;
+      --fg-secondary: #8E8E93;
+      --border: rgba(255, 255, 255, 0.08);
+      --glass-bg: rgba(20, 20, 20, 0.4);
+      --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", sans-serif;
     }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--t1);
-      overflow-x: hidden;
+      font-family: var(--font-sans);
+      background-color: var(--bg);
+      color: var(--fg-primary);
       -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      line-height: 1.5;
     }
 
-    /* ═══ AMBIENT BACKGROUND ═══ */
-    .ambient {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
+    /* Typography */
+    h1, h2, h3 {
+      font-weight: 500;
+      letter-spacing: -0.04em;
     }
-    .ambient .orb {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(120px);
-      animation: float 20s ease-in-out infinite;
-    }
-    .ambient .orb-1 {
-      width: 600px; height: 600px;
-      background: rgba(124,58,237,0.06);
-      top: -200px; right: -200px;
-      animation-delay: 0s;
-    }
-    .ambient .orb-2 {
-      width: 500px; height: 500px;
-      background: rgba(6,182,212,0.04);
-      bottom: -150px; left: -200px;
-      animation-delay: -7s;
-    }
-    .ambient .orb-3 {
-      width: 400px; height: 400px;
-      background: rgba(236,72,153,0.03);
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      animation-delay: -14s;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(30px, -30px) scale(1.05); }
-      66% { transform: translate(-20px, 20px) scale(0.95); }
-    }
-
-    /* ═══ LAYOUT ═══ */
+    
+    /* Layout */
     .container {
-      max-width: 1100px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 24px;
-      position: relative;
-      z-index: 1;
     }
 
-    /* ═══ NAV ═══ */
+    /* Nav */
     nav {
-      position: absolute;
-      top: 0; left: 50%;
-      transform: translateX(-50%);
-      z-index: 100;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: 64px;
       display: flex;
-      gap: 1.5rem;
-      background: #000;
-      padding: 12px 32px;
-      border-radius: 0 0 24px 24px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 100;
+      background: rgba(3, 3, 3, 0.6);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid var(--border);
     }
-    nav a {
-      color: rgba(225, 224, 204, 0.8);
+    .logo {
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: var(--fg-primary);
       text-decoration: none;
-      font-size: 14px;
-      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .logo-dot {
+      width: 6px; height: 6px;
+      background: var(--fg-primary);
+      border-radius: 50%;
+    }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-link {
+      font-size: 13px;
+      color: var(--fg-secondary);
+      text-decoration: none;
       transition: color 0.2s;
     }
-    nav a:hover { color: #E1E0CC; }
+    .nav-link:hover { color: var(--fg-primary); }
 
-    /* ═══ HERO ═══ */
+    /* Hero */
     .hero {
-      height: 100vh;
-      width: 100%;
       position: relative;
+      padding-top: 180px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
       overflow: hidden;
-      border-radius: 0 0 2rem 2rem;
     }
-    .hero-video {
+    .hero-bg-glow {
       position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      z-index: 1;
-    }
-    .hero-noise {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
-      opacity: 0.15;
-      mix-blend-mode: overlay;
+      top: 20%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, transparent 60%);
       pointer-events: none;
-      z-index: 2;
+      z-index: 0;
     }
-    .hero-gradient {
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, transparent 40%, rgba(0,0,0,0.8) 100%);
-      pointer-events: none;
-      z-index: 3;
-    }
-    .hero-content {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 2rem 24px;
-      z-index: 4;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: flex-end;
-    }
-    @media(min-width: 1024px) {
-      .hero-content {
-        grid-template-columns: 2fr 1fr;
-        padding: 0 40px 40px 40px;
-      }
-    }
-    .hero-title {
-      font-size: 24vw;
-      font-weight: 500;
-      line-height: 0.85;
-      letter-spacing: -0.07em;
-      color: #E1E0CC;
-      margin: 0;
-    }
-    @media(min-width: 640px) { .hero-title { font-size: 20vw; } }
-    
-    .pull-up span {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(20px);
-      animation: pullUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-    @keyframes pullUp { to { opacity: 1; transform: translateY(0); } }
-    
-    .hero-desc {
-      color: rgba(255,255,255,0.7);
-      font-size: 16px;
-      line-height: 1.4;
+    .hero h1 {
+      font-size: clamp(48px, 8vw, 96px);
+      line-height: 1;
       margin-bottom: 24px;
+      max-width: 900px;
+      z-index: 1;
+      background: linear-gradient(180deg, #FFFFFF 0%, #A0A0A0 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       opacity: 0;
-      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards;
+      animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
-    .hero-btn {
+    .hero p {
+      font-size: clamp(18px, 2.5vw, 24px);
+      color: var(--fg-secondary);
+      max-width: 600px;
+      margin: 0 auto 48px;
+      letter-spacing: -0.01em;
+      z-index: 1;
+      opacity: 0;
+      animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+    }
+    
+    /* Button */
+    .btn-download {
+      position: relative;
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      background: var(--pri);
-      color: #fff;
-      padding: 6px 6px 6px 20px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 16px 32px;
       border-radius: 100px;
-      font-weight: 500;
+      color: var(--fg-primary);
       text-decoration: none;
-      transition: all 0.3s;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      overflow: hidden;
+      z-index: 1;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       opacity: 0;
-      animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+      animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    .hero-btn:hover { gap: 16px; }
-    .hero-btn .icon-circle {
-      width: 40px; height: 40px;
-      background: #000;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.3s;
-    }
-    .hero-btn:hover .icon-circle { transform: scale(1.1); }
-    .hero-btn svg { width: 16px; height: 16px; color: #E1E0CC; }
-
-    /* ═══ FEATURES ═══ */
-    .features {
-      padding: 80px 0;
-    }
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      color: var(--pri);
-      text-align: center;
-      margin-bottom: 16px;
-    }
-    .section-title {
-      font-size: clamp(28px, 4vw, 40px);
-      font-weight: 800;
-      letter-spacing: -1px;
-      text-align: center;
-      margin-bottom: 16px;
-    }
-    .section-sub {
-      font-size: 16px;
-      color: var(--t3);
-      text-align: center;
-      max-width: 500px;
-      margin: 0 auto 60px;
-      line-height: 1.6;
-    }
-    .features-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 16px;
-    }
-    .feature-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 32px;
-      transition: all 0.3s;
-    }
-    .feature-card:hover {
-      border-color: rgba(148,163,184,0.15);
+    .btn-download:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
       transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.5);
     }
-    .feature-icon {
-      width: 48px; height: 48px;
-      border-radius: 12px;
+    .btn-download .icon {
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 22px;
-      margin-bottom: 20px;
+      width: 24px; height: 24px;
+      background: var(--fg-primary);
+      color: var(--bg);
+      border-radius: 50%;
     }
-    .feature-card h3 {
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.2px;
+    .btn-download .icon svg { width: 14px; height: 14px; }
+
+    /* Mockup */
+    .hero-mockup-wrapper {
+      margin-top: 80px;
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      justify-content: center;
+      z-index: 2;
+      perspective: 1000px;
+      opacity: 0;
+      animation: revealUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
     }
-    .feature-card p {
-      font-size: 14px;
-      color: var(--t3);
-      line-height: 1.6;
+    .hero-mockup {
+      width: 100%;
+      max-width: 400px; /* Constrain the height visually */
+      height: auto;
+      transform: rotateX(15deg) rotateY(-5deg) rotateZ(2deg);
+      transition: transform 0.5s ease;
+      filter: drop-shadow(0 40px 80px rgba(0,0,0,0.8));
+      border-radius: 44px;
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+    .hero-mockup-wrapper:hover .hero-mockup {
+      transform: rotateX(5deg) rotateY(0deg) rotateZ(0deg) translateY(-10px);
     }
 
-    /* ═══ DOWNLOAD SECTION ═══ */
-    .download {
-      padding: 100px 0;
-      text-align: center;
+    /* Bento Grid */
+    .bento-section {
+      padding: 120px 0;
+      position: relative;
     }
-    .download-card {
-      background: var(--bg-card);
+    .bento-header {
+      text-align: center;
+      margin-bottom: 80px;
+    }
+    .bento-header h2 {
+      font-size: clamp(32px, 5vw, 48px);
+      color: var(--fg-primary);
+      margin-bottom: 16px;
+    }
+    .bento-header p {
+      font-size: 18px;
+      color: var(--fg-secondary);
+    }
+
+    .bento-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: minmax(320px, auto);
+      gap: 24px;
+    }
+    .bento-card {
+      background: var(--glass-bg);
       border: 1px solid var(--border);
       border-radius: 24px;
-      padding: 60px 40px;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
       position: relative;
       overflow: hidden;
+      transition: border-color 0.3s ease;
     }
-    .download-card::before {
+    .bento-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    /* Inner Glow for cards */
+    .bento-card::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--pri), transparent);
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255,255,255,0.04), transparent 40%);
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.5s;
     }
-    .download-card h2 {
-      font-size: clamp(24px, 4vw, 36px);
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 16px;
+    .bento-card:hover::before { opacity: 1; }
+    
+    .bento-card-content { position: relative; z-index: 1; }
+    
+    .bento-card h3 {
+      font-size: 24px;
+      margin-bottom: 12px;
+      color: var(--fg-primary);
     }
-    .download-card p {
-      color: var(--t3);
-      font-size: 16px;
-      max-width: 420px;
-      margin: 0 auto 36px;
+    .bento-card p {
+      font-size: 15px;
+      color: var(--fg-secondary);
       line-height: 1.6;
     }
-    .download-info {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 32px;
-      margin-top: 28px;
-      flex-wrap: wrap;
-    }
-    .download-info .info-item {
-      font-size: 13px;
-      color: var(--t3);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .download-info .info-dot {
-      width: 4px; height: 4px;
-      border-radius: 50%;
-      background: var(--t3);
+
+    /* Asymmetric sizing */
+    .bento-large { grid-column: span 2; }
+    @media(max-width: 900px) {
+      .bento-grid { grid-template-columns: 1fr; }
+      .bento-large { grid-column: span 1; }
     }
 
-    /* ═══ FOOTER ═══ */
+    /* Footer */
     footer {
-      padding: 40px 0;
-      text-align: center;
       border-top: 1px solid var(--border);
-    }
-    footer p {
+      padding: 40px 24px;
+      text-align: center;
+      color: var(--fg-secondary);
       font-size: 13px;
-      color: var(--t3);
-      font-weight: 500;
     }
 
-    /* ═══ RESPONSIVE ═══ */
-    @media (max-width: 640px) {
-      .hero { padding: 130px 0 60px; }
-      .features-grid { grid-template-columns: 1fr; }
-      .download-card { padding: 40px 24px; }
-      .hero-actions { flex-direction: column; }
-      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-    }
-
-    /* ═══ ANIMATIONS ═══ */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 0.6s ease forwards;
-    }
-    .fade-in:nth-child(2) { animation-delay: 0.1s; }
-    .fade-in:nth-child(3) { animation-delay: 0.2s; }
-    .fade-in:nth-child(4) { animation-delay: 0.3s; }
-    .fade-in:nth-child(5) { animation-delay: 0.4s; }
-    .fade-in:nth-child(6) { animation-delay: 0.5s; }
-
-    @keyframes fadeIn {
+    /* Animations */
+    @keyframes revealUp {
+      from { opacity: 0; transform: translateY(40px); }
       to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <!-- Ambient Background -->
-  <div class="ambient">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="orb orb-3"></div>
-  </div>
-
   <!-- Nav -->
   <nav>
-    <a href="#features">Features</a>
-    <a href="#download">Download</a>
-    <a href="Aether_v5.apk">Get APK</a>
+    <a href="#" class="logo">
+      <div class="logo-dot"></div>
+      Aether
+    </a>
+    <div class="nav-links">
+      <a href="#features" class="nav-link">Features</a>
+      <a href="Aether_v5.apk" class="nav-link" download>Download APK</a>
+    </div>
   </nav>
 
   <!-- Hero -->
   <section class="hero">
-    <video autoplay loop muted playsinline class="hero-video" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_170732_8a9ccda6-5cff-4628-b164-059c500a2b41.mp4"></video>
-    <div class="hero-noise"></div>
-    <div class="hero-gradient"></div>
+    <div class="hero-bg-glow"></div>
+    <div class="container">
+      <h1>The operating system<br>for your mind.</h1>
+      <p>A beautifully quiet workspace where tasks, habits, journals, and goals converge seamlessly.</p>
+      
+      <a href="Aether_v5.apk" class="btn-download" download id="downloadBtn">
+        Download for Android
+        <div class="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+    </div>
 
-    <div class="hero-content">
-      <div class="hero-left">
-        <h1 class="hero-title pull-up">
-          <span style="animation-delay: 0s;">Aether</span><span style="animation-delay: 0.1s; position:relative; font-size: 8vw; top: -10vw;">*</span>
-        </h1>
+    <!-- AI Generated Mockup -->
+    <div class="hero-mockup-wrapper">
+      <img src="hero-mockup.png" alt="Aether App Interface" class="hero-mockup">
+    </div>
+  </section>
+
+  <!-- Features (Bento Box) -->
+  <section class="bento-section" id="features">
+    <div class="container">
+      <div class="bento-header">
+        <h2>Clarity by design.</h2>
+        <p>Everything you need, nothing you don't.</p>
       </div>
-      <div class="hero-right">
-        <p class="hero-desc">Aether is a calm, intelligent productivity operating system. Tasks, habits, journals, goals, focus timer, and AI — unified into one operating system for your life.</p>
-        <a href="Aether_v5.apk" class="hero-btn" download>
-          Download APK
-          <div class="icon-circle">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      
+      <div class="bento-grid" id="bentoGrid">
+        <div class="bento-card bento-large">
+          <div class="bento-card-content">
+            <h3>Unified Workspace</h3>
+            <p>Tasks, projects, and due dates elegantly organized. Aether eliminates the friction of switching context by bringing your entire life's management into a single, cohesive view.</p>
           </div>
-        </a>
-      </div>
-    </div>
-  </section>
+        </div>
+        
+        <div class="bento-card">
+          <div class="bento-card-content">
+            <h3>Habit Formation</h3>
+            <p>Track daily habits visually. Build streaks and watch your consistency compound over time without the noise of gamification.</p>
+          </div>
+        </div>
 
-  <!-- Features -->
-  <section class="features" id="features">
-    <div class="container">
-      <p class="section-label">Everything You Need</p>
-      <h2 class="section-title">One app. Total clarity.</h2>
-      <p class="section-sub">Stop switching between 5 different apps. Aether brings everything into one calm, intelligent workspace.</p>
-      <div class="features-grid">
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background: rgba(124,58,237,0.1)">☐</div>
-          <h3>Tasks</h3>
-          <p>Create, prioritize, and complete tasks with projects, due dates, and priority levels. See what matters today.</p>
+        <div class="bento-card">
+          <div class="bento-card-content">
+            <h3>Mindful Reflection</h3>
+            <p>A private, secure journal space to capture your thoughts, track your mood, and reflect on your days with absolute clarity.</p>
+          </div>
         </div>
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background: rgba(16,185,129,0.1)">◉</div>
-          <h3>Habits</h3>
-          <p>Build streaks, track daily habits with a heatmap, and watch your consistency compound over time.</p>
-        </div>
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background: rgba(6,182,212,0.1)">◇</div>
-          <h3>Journal</h3>
-          <p>Reflect on your day with mood tracking, tags, and a visual mood trend chart. Write freely.</p>
-        </div>
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background: rgba(236,72,153,0.1)">◎</div>
-          <h3>Goals</h3>
-          <p>Set meaningful long-term goals with progress tracking, target dates, and visual milestones.</p>
-        </div>
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background: rgba(245,158,11,0.1)">⏱</div>
-          <h3>Focus Timer</h3>
-          <p>Pomodoro-style deep work sessions with break timers, daily stats, and weekly progress charts.</p>
-        </div>
-        <div class="feature-card fade-in">
-          <div class="feature-icon" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(6,182,212,0.1))">✦</div>
-          <h3>AI Assistant</h3>
-          <p>Chat with Aether AI for advice, brainstorming, and analysis. Supports text and image uploads.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- Download -->
-  <section class="download" id="download">
-    <div class="container">
-      <div class="download-card">
-        <h2>Ready to orchestrate your life?</h2>
-        <p>Download Aether and experience the calm, intelligent way to manage everything that matters.</p>
-        <a href="Aether_v5.apk" class="btn-primary" download>
-          <span class="icon">↓</span>
-          Download Aether v2.0
-        </a>
-        <div class="download-info">
-          <span class="info-item">Android 8.0+</span>
-          <span class="info-dot"></span>
-          <span class="info-item">~27 MB</span>
-          <span class="info-dot"></span>
-          <span class="info-item">Free</span>
-          <span class="info-dot"></span>
-          <span class="info-item">No ads</span>
+        <div class="bento-card bento-large">
+          <div class="bento-card-content">
+            <h3>Long-term Horizons</h3>
+            <p>Set meaningful goals spanning months or years. Break them down into milestones and connect them directly to your daily tasks and habits.</p>
+          </div>
         </div>
       </div>
     </div>
@@ -472,25 +357,33 @@
 
   <!-- Footer -->
   <footer>
-    <div class="container">
-      <p>Aether — Your Life, Orchestrated · Built with care</p>
-    </div>
+    <p>Aether — Designed for clarity.</p>
   </footer>
 
-  <!-- Intersection Observer for fade-in animations -->
+  <!-- Scripts -->
   <script>
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.animationPlayState = 'running';
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.fade-in').forEach(el => {
-      el.style.animationPlayState = 'paused';
-      observer.observe(el);
+    // Magnetic hover effect for button
+    const btn = document.getElementById('downloadBtn');
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
     });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = `translate(0px, 0px)`;
+    });
+
+    // Hover glow effect for Bento cards
+    document.getElementById('bentoGrid').onmousemove = e => {
+      for(const card of document.getElementsByClassName("bento-card")) {
+        const rect = card.getBoundingClientRect(),
+              x = e.clientX - rect.left,
+              y = e.clientY - rect.top;
+        card.style.setProperty("--mouse-x", `${x}px`);
+        card.style.setProperty("--mouse-y", `${y}px`);
+      };
+    }
   </script>
 </body>
 </html>
