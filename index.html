@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aether — Your Life, Orchestrated</title>
+  <meta name="description" content="Aether is a calm, intelligent productivity operating system. Tasks, habits, journals, goals, AI — all in one place.">
+  <meta name="theme-color" content="#050508">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #050508;
+      --bg-card: #0B0B14;
+      --bg-elevated: #0F0F1A;
+      --pri: #7C3AED;
+      --pri-soft: rgba(124,58,237,0.10);
+      --pri-glow: rgba(124,58,237,0.15);
+      --cyan: #06B6D4;
+      --green: #10B981;
+      --rose: #EC4899;
+      --amber: #F59E0B;
+      --t1: #F1F5F9;
+      --t2: #94A3B8;
+      --t3: #64748B;
+      --border: rgba(148,163,184,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--t1);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══ AMBIENT BACKGROUND ═══ */
+    .ambient {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .ambient .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(120px);
+      animation: float 20s ease-in-out infinite;
+    }
+    .ambient .orb-1 {
+      width: 600px; height: 600px;
+      background: rgba(124,58,237,0.06);
+      top: -200px; right: -200px;
+      animation-delay: 0s;
+    }
+    .ambient .orb-2 {
+      width: 500px; height: 500px;
+      background: rgba(6,182,212,0.04);
+      bottom: -150px; left: -200px;
+      animation-delay: -7s;
+    }
+    .ambient .orb-3 {
+      width: 400px; height: 400px;
+      background: rgba(236,72,153,0.03);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -14s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+
+    /* ═══ LAYOUT ═══ */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ═══ NAV ═══ */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 16px 0;
+      background: rgba(5,5,8,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    nav .container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: linear-gradient(135deg, var(--pri), #A855F7);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 900;
+      font-size: 16px;
+      color: #fff;
+    }
+    .logo-text {
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--t1);
+      letter-spacing: -0.3px;
+    }
+    .nav-download {
+      padding: 10px 24px;
+      background: var(--pri);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .nav-download:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 24px rgba(124,58,237,0.3);
+    }
+
+    /* ═══ HERO ═══ */
+    .hero {
+      padding: 160px 0 100px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 16px;
+      background: var(--pri-soft);
+      border: 1px solid rgba(124,58,237,0.15);
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #A78BFA;
+      margin-bottom: 32px;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    .hero h1 {
+      font-size: clamp(40px, 7vw, 72px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, var(--t1) 0%, var(--t2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--pri), #A855F7, var(--cyan));
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--t3);
+      max-width: 560px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+      font-weight: 400;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 16px 36px;
+      background: linear-gradient(135deg, var(--pri), #6D28D9);
+      color: #fff;
+      border: none;
+      border-radius: 14px;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 8px 32px rgba(124,58,237,0.25);
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(124,58,237,0.4);
+    }
+    .btn-primary .icon {
+      font-size: 20px;
+    }
+    .btn-secondary {
+      padding: 16px 36px;
+      background: transparent;
+      color: var(--t2);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.25s;
+    }
+    .btn-secondary:hover {
+      border-color: rgba(148,163,184,0.2);
+      color: var(--t1);
+    }
+    .hero-version {
+      margin-top: 24px;
+      font-size: 13px;
+      color: var(--t3);
+      font-weight: 500;
+    }
+
+    /* ═══ FEATURES ═══ */
+    .features {
+      padding: 80px 0;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--pri);
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 16px;
+      color: var(--t3);
+      text-align: center;
+      max-width: 500px;
+      margin: 0 auto 60px;
+      line-height: 1.6;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      transition: all 0.3s;
+    }
+    .feature-card:hover {
+      border-color: rgba(148,163,184,0.15);
+      transform: translateY(-2px);
+    }
+    .feature-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+    .feature-card p {
+      font-size: 14px;
+      color: var(--t3);
+      line-height: 1.6;
+    }
+
+    /* ═══ DOWNLOAD SECTION ═══ */
+    .download {
+      padding: 100px 0;
+      text-align: center;
+    }
+    .download-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 60px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .download-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--pri), transparent);
+    }
+    .download-card h2 {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .download-card p {
+      color: var(--t3);
+      font-size: 16px;
+      max-width: 420px;
+      margin: 0 auto 36px;
+      line-height: 1.6;
+    }
+    .download-info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .download-info .info-item {
+      font-size: 13px;
+      color: var(--t3);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .download-info .info-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--t3);
+    }
+
+    /* ═══ FOOTER ═══ */
+    footer {
+      padding: 40px 0;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    footer p {
+      font-size: 13px;
+      color: var(--t3);
+      font-weight: 500;
+    }
+
+    /* ═══ RESPONSIVE ═══ */
+    @media (max-width: 640px) {
+      .hero { padding: 130px 0 60px; }
+      .features-grid { grid-template-columns: 1fr; }
+      .download-card { padding: 40px 24px; }
+      .hero-actions { flex-direction: column; }
+      .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+    }
+
+    /* ═══ ANIMATIONS ═══ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 0.6s ease forwards;
+    }
+    .fade-in:nth-child(2) { animation-delay: 0.1s; }
+    .fade-in:nth-child(3) { animation-delay: 0.2s; }
+    .fade-in:nth-child(4) { animation-delay: 0.3s; }
+    .fade-in:nth-child(5) { animation-delay: 0.4s; }
+    .fade-in:nth-child(6) { animation-delay: 0.5s; }
+
+    @keyframes fadeIn {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Background -->
+  <div class="ambient">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Nav -->
+  <nav>
+    <div class="container">
+      <a href="#" class="logo">
+        <div class="logo-mark">A</div>
+        <span class="logo-text">Aether</span>
+      </a>
+      <a href="#download" class="nav-download">Download APK</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Version 2.0 — Now Available
+      </div>
+      <h1>Your Life,<br><span>Orchestrated</span></h1>
+      <p>Aether is a calm, intelligent productivity system. Tasks, habits, journals, goals, focus timer, and AI — unified into one operating system for your life.</p>
+      <div class="hero-actions">
+        <a href="Aether_v5.apk" class="btn-primary" download>
+          <span class="icon">↓</span>
+          Download for Android
+        </a>
+        <a href="#features" class="btn-secondary">Learn More</a>
+      </div>
+      <p class="hero-version">v2.0.0 · Android 8+ · ~27 MB</p>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <p class="section-label">Everything You Need</p>
+      <h2 class="section-title">One app. Total clarity.</h2>
+      <p class="section-sub">Stop switching between 5 different apps. Aether brings everything into one calm, intelligent workspace.</p>
+      <div class="features-grid">
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: rgba(124,58,237,0.1)">☐</div>
+          <h3>Tasks</h3>
+          <p>Create, prioritize, and complete tasks with projects, due dates, and priority levels. See what matters today.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: rgba(16,185,129,0.1)">◉</div>
+          <h3>Habits</h3>
+          <p>Build streaks, track daily habits with a heatmap, and watch your consistency compound over time.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: rgba(6,182,212,0.1)">◇</div>
+          <h3>Journal</h3>
+          <p>Reflect on your day with mood tracking, tags, and a visual mood trend chart. Write freely.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: rgba(236,72,153,0.1)">◎</div>
+          <h3>Goals</h3>
+          <p>Set meaningful long-term goals with progress tracking, target dates, and visual milestones.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: rgba(245,158,11,0.1)">⏱</div>
+          <h3>Focus Timer</h3>
+          <p>Pomodoro-style deep work sessions with break timers, daily stats, and weekly progress charts.</p>
+        </div>
+        <div class="feature-card fade-in">
+          <div class="feature-icon" style="background: linear-gradient(135deg, rgba(124,58,237,0.1), rgba(6,182,212,0.1))">✦</div>
+          <h3>AI Assistant</h3>
+          <p>Chat with Aether AI for advice, brainstorming, and analysis. Supports text and image uploads.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section class="download" id="download">
+    <div class="container">
+      <div class="download-card">
+        <h2>Ready to orchestrate your life?</h2>
+        <p>Download Aether and experience the calm, intelligent way to manage everything that matters.</p>
+        <a href="Aether_v5.apk" class="btn-primary" download>
+          <span class="icon">↓</span>
+          Download Aether v2.0
+        </a>
+        <div class="download-info">
+          <span class="info-item">Android 8.0+</span>
+          <span class="info-dot"></span>
+          <span class="info-item">~27 MB</span>
+          <span class="info-dot"></span>
+          <span class="info-item">Free</span>
+          <span class="info-dot"></span>
+          <span class="info-item">No ads</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>Aether — Your Life, Orchestrated · Built with care</p>
+    </div>
+  </footer>
+
+  <!-- Intersection Observer for fade-in animations -->
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.style.animationPlayState = 'paused';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
