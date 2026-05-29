@@ -53,7 +53,7 @@
       animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
     }
     
-    .btn-download {
+    .btn-download.hero-btn {
       opacity: 0;
       animation: revealUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards;
     }
@@ -85,25 +85,7 @@
       transform: rotateX(5deg) rotateY(0deg) rotateZ(0deg) translateY(-10px);
     }
 
-    /* Bento Grid */
-    .bento-section {
-      padding: 120px 0;
-      position: relative;
-    }
-    .bento-header {
-      text-align: center;
-      margin-bottom: 80px;
-    }
-    .bento-header h2 {
-      font-size: clamp(32px, 5vw, 48px);
-      color: var(--fg-primary);
-      margin-bottom: 16px;
-    }
-    .bento-header p {
-      font-size: 18px;
-      color: var(--fg-secondary);
-    }
-
+    /* Bento Grid (Features) */
     .bento-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -164,26 +146,26 @@
 
   <!-- Nav -->
   <nav>
-    <a href="/" class="logo">
+    <a href="#" class="logo">
       <div class="logo-dot"></div>
       Aether
     </a>
     <div class="nav-links">
-      <a href="/features.html" class="nav-link">Features</a>
-      <a href="/philosophy.html" class="nav-link">Philosophy</a>
-      <a href="/pricing.html" class="nav-link">Pricing</a>
+      <a href="#features" class="nav-link">Features</a>
+      <a href="#philosophy" class="nav-link">Philosophy</a>
+      <a href="#pricing" class="nav-link">Pricing</a>
       <a href="Aether_v5.apk" class="nav-link" download>Download APK</a>
     </div>
   </nav>
 
-  <!-- Hero -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-bg-glow"></div>
     <div class="container">
       <h1>The operating system<br>for your mind.</h1>
       <p>A beautifully quiet workspace where tasks, habits, journals, and goals converge seamlessly.</p>
       
-      <a href="Aether_v5.apk" class="btn-download" download id="downloadBtn">
+      <a href="Aether_v5.apk" class="btn-download hero-btn" download id="downloadBtn">
         Download for Android
         <div class="icon">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -191,16 +173,15 @@
       </a>
     </div>
 
-    <!-- AI Generated Mockup -->
     <div class="hero-mockup-wrapper">
       <img src="hero-mockup.png" alt="Aether App Interface" class="hero-mockup">
     </div>
   </section>
 
-  <!-- Features (Bento Box) -->
-  <section class="bento-section" id="features">
+  <!-- Features Section -->
+  <section class="section-spacing" id="features">
     <div class="container">
-      <div class="bento-header">
+      <div class="section-header">
         <h2>Clarity by design.</h2>
         <p>Everything you need, nothing you don't.</p>
       </div>
@@ -237,18 +218,78 @@
     </div>
   </section>
 
+  <!-- Philosophy Section -->
+  <section class="section-spacing" id="philosophy" style="background: rgba(255,255,255,0.01); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <div class="section-header">
+        <h2>Quiet by design.</h2>
+        <p>Why we built an operating system for your mind.</p>
+      </div>
+      
+      <div class="prose">
+        <h2>The War for Attention</h2>
+        <p>Modern software is designed to extract. It extracts your time, your focus, and your attention through endless feeds, red notification dots, and psychological gamification. We are told that to be productive, we need leaderboards, streaks, and artificial urgency.</p>
+        
+        <h2>A Different Approach</h2>
+        <p>Aether was built on a fundamentally different premise: your tools should be quiet. They should get out of your way. Aether does not yell at you when you miss a habit. It does not gamify your life with superficial points. It provides a stark, beautiful canvas for you to project your own intentions onto.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section class="section-spacing" id="pricing">
+    <div class="container">
+      <div class="section-header">
+        <h2>Simple, transparent pricing.</h2>
+        <p>Start for free. Upgrade when you need more power.</p>
+      </div>
+      
+      <div class="pricing-grid">
+        <div class="pricing-card">
+          <div class="plan-name">Core</div>
+          <div class="plan-price">$0 <span>/ forever</span></div>
+          <div class="plan-desc">Everything you need to orchestrate your daily life, completely free.</div>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Unlimited Tasks</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> 5 Daily Habits</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Local Storage</li>
+          </ul>
+          <a href="Aether_v5.apk" class="btn-download btn-secondary btn-block" download>Download Free</a>
+        </div>
+
+        <div class="pricing-card featured">
+          <div class="plan-name">Pro</div>
+          <div class="plan-price">$8 <span>/ month</span></div>
+          <div class="plan-desc">Advanced features and AI integration for peak productivity.</div>
+          <ul class="feature-list">
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Unlimited Everything</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Cloud Sync</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Aether AI Assistant</li>
+          </ul>
+          <a href="Aether_v5.apk" class="btn-download btn-block" download>Upgrade in App</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Privacy (Small section at bottom) -->
+  <section class="section-spacing" id="privacy" style="padding-top: 0;">
+    <div class="container prose">
+      <h2>Privacy & Security</h2>
+      <p>If you are using the free Core tier, all of your data is stored locally on your device. We do not transmit this data to our servers. Your private thoughts remain exclusively on the hardware you own.</p>
+      <p>If you opt-in to Aether Pro for cloud syncing, your data is securely transmitted and encrypted using industry-standard AES-256 encryption. We do not sell your data.</p>
+    </div>
+  </section>
+
   <!-- Footer -->
   <footer>
     <p>Aether — Designed for clarity.</p>
-    <div class="footer-links">
-      <a href="/privacy.html">Privacy Policy</a>
-      <a href="mailto:hello@aetherworld.com">Contact</a>
-    </div>
+    <a href="mailto:hello@aetherworld.com" style="color: var(--fg-secondary); text-decoration: none;">Contact Us</a>
   </footer>
 
   <!-- Scripts -->
   <script>
-    // Magnetic hover effect for button
+    // Magnetic hover effect for hero button
     const btn = document.getElementById('downloadBtn');
     btn.addEventListener('mousemove', (e) => {
       const rect = btn.getBoundingClientRect();
